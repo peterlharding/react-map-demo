@@ -19,8 +19,8 @@ export interface Position {
 }
 
 export const melbourneCoords: GoogleApiCoords = {
-  lat: -37.8957,
-  lng: 145.0337
+  lat: -37.813862735640086,
+  lng: 144.96287723964844
 }
 
 
