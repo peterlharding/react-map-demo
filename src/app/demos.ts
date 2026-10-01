@@ -44,9 +44,16 @@ export const demos = {
     title: 'Shapes and Measuring',
     summary: 'Draws an editable route, area and circle, and measures their length and area with the Maps geometry library.',
     tryIt: 'Pick a tool and click the map to draw, then drag the white handles to reshape and watch the measurements change.'
+  },
+  mapState: {
+    path: '/map-state',
+    title: 'Map State in the URL',
+    summary: 'Keeps the map\'s centre, zoom and type in the page address, so any view can be bookmarked or shared, and Back and Forward step between views.',
+    tryIt: 'Jump between a few places, then use the browser\'s Back and Forward buttons. Pan or zoom and watch the address follow, then copy the link.'
   }
 } satisfies Record<string, Demo>;
 
 export const demoList: Demo[] = [
-  demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation, demos.addPlaces, demos.shapes
+  demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation, demos.addPlaces, demos.shapes,
+  demos.mapState
 ];

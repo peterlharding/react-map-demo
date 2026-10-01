@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Map State in the URL demo (`/map-state`): the map's centre, zoom and type live in the page address, so views can be bookmarked and shared, Back and Forward step between them, and a link to the current view can be copied.
+
+### Changed
+
+- The navigation bar collapses into a menu below 1200 px wide, instead of 768 px, so its labels no longer wrap onto two lines on mid-sized screens.
+
 ## [0.5.0] - 2026-10-01
 
 See [release_notes/v0.5.0.md](release_notes/v0.5.0.md) for details.

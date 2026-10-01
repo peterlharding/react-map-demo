@@ -42,7 +42,8 @@ export const routes: RouteObject[] = [
               {path: demos.pickLocation.path, lazy: page(() => import('../pages/PickLocationPage'))},
               {path: demos.myLocation.path,   lazy: page(() => import('../pages/MyLocationPage'))},
               {path: demos.addPlaces.path,    lazy: page(() => import('../pages/AddPlacesPage'))},
-              {path: demos.shapes.path,       lazy: page(() => import('../pages/ShapesPage'))}
+              {path: demos.shapes.path,       lazy: page(() => import('../pages/ShapesPage'))},
+              {path: demos.mapState.path,     lazy: page(() => import('../pages/MapStatePage'))}
             ]
           },
           ...redirects.map(([from, to]) => ({path: from, element: <Navigate to={to} replace />})),

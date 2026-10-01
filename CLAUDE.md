@@ -55,6 +55,11 @@ The root `.env` (from `setup/env.template`) holds:
   `src/app/errors.ts` describes errors, detects stale lazy modules after a deploy, and redacts API keys (the Maps loader puts the key in its error messages).
 - `MapsLoader` loads the `marker` and `geometry` libraries. Changing that list while the dev server is running makes the Maps loader throw on hot reload; reload the page.
 - `ShapesPage` mirrors editable `PolylineF`/`PolygonF` paths into React state on `mouseup` (the library's `PolygonF` `onEdit` only watches the first path object), and `CircleF` via `onCenterChanged`/`onRadiusChanged` with an equality check, since those also fire when React sets the props.
+- `MapStatePage` keeps the view only in the search params (`src/components/mapView.ts` parses, validates and rounds them).
+  It writes back on the map's `idle` (replace) and on deliberate choices (push), and skips writes when the rounded view is unchanged; the rounding is what stops the map and the address nudging each other.
+  `center` is memoised on its coordinates because `GoogleMap` re-centres whenever the object changes.
+- `MapCanvas` takes optional `zoom` (default 13), `mapTypeId`, `onIdle` and `onMapTypeIdChanged`.
+- The navbar collapses below Bootstrap's `xl` breakpoint because the seven demo titles need about 1000 px; check it still fits on one line when adding a demo.
 - Page titles are set with React 19's `<title>` element inside each page.
 
 ## Changelog and releases

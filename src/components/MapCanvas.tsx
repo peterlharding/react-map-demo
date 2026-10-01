@@ -12,13 +12,20 @@ interface Props {
   // GoogleMap re-centres only when this object changes, so pass a stable
   // value to let the user (or map.panTo) move the map freely
   center: LatLng;
+  zoom?: number;
+  mapTypeId?: string;
   // Not called for the click that ends a marker drag
   onClick?: (event: google.maps.MapMouseEvent) => void;
   onLoad?: (map: google.maps.Map) => void;
+  // After the map stops moving
+  onIdle?: () => void;
+  onMapTypeIdChanged?: () => void;
   children?: ReactNode;
 }
 
-export const MapCanvas = ({center, onClick, onLoad, children}: Props) => {
+export const MapCanvas = ({
+  center, zoom = 13, mapTypeId, onClick, onLoad, onIdle, onMapTypeIdChanged, children
+}: Props) => {
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const handleLoad = (map: google.maps.Map) => {
@@ -38,11 +45,14 @@ export const MapCanvas = ({center, onClick, onLoad, children}: Props) => {
   return (
     <GoogleMap
       mapContainerClassName='map-canvas'
-      zoom={13}
+      zoom={zoom}
       center={center}
+      mapTypeId={mapTypeId}
       options={options}
       onClick={handleClick}
-      onLoad={handleLoad}>
+      onLoad={handleLoad}
+      onIdle={onIdle}
+      onMapTypeIdChanged={onMapTypeIdChanged}>
       {children}
     </GoogleMap>
   );

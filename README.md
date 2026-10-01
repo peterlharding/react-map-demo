@@ -2,7 +2,7 @@ React Map Demo
 ==============
 
 Demo of the @react-google-maps/api module, built with Vite, React 19, TypeScript and React Router 8.
-It shows six ways of working with a Google Map, from a bare map up to drawing and measuring your own shapes.
+It shows seven ways of working with a Google Map, from a bare map up to drawing shapes and sharing a view as a link.
 
 # Setup
 
@@ -106,6 +106,19 @@ Distances are shown in metres below 1 km and kilometres above.
 Areas are shown in square metres, hectares or square kilometres, depending on their size.
 Shapes are not saved, so reloading the page starts again.
 
+## 7. Map State in the URL (`/map-state`)
+
+Keeps the whole map view in the page address, for example `/map-state?lat=-37.8634&lng=144.9714&zoom=16&type=satellite`.
+The address is the only state: the map shows what it says, and moving the map writes back to it.
+
+* **Go to** buttons jump to a few places around Melbourne, each with its own zoom and map type.
+  Each jump adds a history entry, so the browser's Back and Forward buttons step between views.
+* Panning and zooming update the address as soon as the map stops moving, replacing the current history entry rather than adding new ones.
+* The **Map type** picker, and the map's own Map/Satellite control, change the `type` in the address and add a history entry.
+* **Link to this view** shows the full address, with a button to copy it.
+  Opening that link, or a bookmark of it, shows exactly the same view.
+* Missing or invalid values in the address fall back to the default view and are corrected in the address.
+
 ## Old links and unknown pages
 
 The paths used before 0.3.0 (`/mapper`, `/mapper2`, `/map-edit` and `/map-view`) redirect to the matching demo.
@@ -143,7 +156,7 @@ To add a demo, add an entry to `src/app/demos.ts`, a page in `src/pages/` wrappe
 The Google Maps API cannot load in the test environment, so tests replace the map with a placeholder.
 They cover routing, the home page, navigation, the old path redirects, the missing API key message,
 adding, showing and removing places in Add Places, drawing and measuring in Shapes and Measuring,
-and the error page.
+reading and writing the view in Map State in the URL, and the error page.
 Check the maps themselves in a browser with `make dev`.
 
 # Also see
