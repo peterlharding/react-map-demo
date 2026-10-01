@@ -1,84 +1,42 @@
 import {useState, useEffect} from 'react';
-import {GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 
-import {GoogleMapsApiKey} from '../localization';
+import MapCanvas      from './MapCanvas';
+import AdvancedMarker from './AdvancedMarker';
+import {melbourneCoords, formatCoord, type LatLng} from './geo';
 
+const hasGeolocation = () => 'geolocation' in navigator;
 
-export interface Coords {
-  latitude: number,
-  longitude: number
-}
-
-export interface GoogleApiCoords {
-  lat: number,
-  lng: number
-}
-
-export interface Position {
-  coords: Coords
-}
-
-export const melbourneCoords: GoogleApiCoords = {
-  lat: -37.813862735640086,
-  lng: 144.96287723964844
-}
-
-
+// Centers on the browser's location (falling back to Melbourne) with a draggable marker
 const MapView = () => {
 
-  const [currentPosition, setCurrentPosition] = useState(melbourneCoords);
-
-  const success = (position: Position) => {
-    const currentPosition = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    }
-    setCurrentPosition(currentPosition);
-  };
+  const [currentPosition, setCurrentPosition] = useState<LatLng>(melbourneCoords);
+  const [locationStatus, setLocationStatus] = useState(() =>
+    hasGeolocation() ? 'Locating you...' : 'Geolocation is not supported, showing Melbourne');
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(success);
-  });
-
-  const onMarkerDragEnd = (e: any) => {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    setCurrentPosition({lat, lng})
-  };
-
-  const mapStyles = {
-    height: '80vh',
-    width: '80%'
-  };
-
-  // const defaultCenter = {
-  //     lat: -37.9, lng: 145.05  // Home!
-  // }
+    if (!hasGeolocation()) {
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+        setLocationStatus('Showing your location');
+      },
+      (error) => setLocationStatus(`Location unavailable (${error.message}), showing Melbourne`)
+    );
+  }, []);
 
   return (
-    <div className='container text-left ' style={{width: '80%'}}>
-      <h1 className='text-info p-2'>Map View Interface</h1>
-      <p>Lat: {currentPosition.lat}<br />Long: {currentPosition.lng}</p>
-      <LoadScript googleMapsApiKey={GoogleMapsApiKey}>
-        <GoogleMap
-          mapContainerStyle={mapStyles}
-          zoom={13}
-          center={currentPosition}>
-          {
-            (
-              currentPosition.lat ?
-                <Marker
-                  position={currentPosition}
-                  onDragEnd={(e) => onMarkerDragEnd(e)}
-                  draggable={true} /> : null
-            )
-          }
-        </GoogleMap>
-      </LoadScript>
-
-    </div>
+    <section>
+      <h1 className='text-info h2 mb-3'>Map View Interface</h1>
+      <p className='mb-1 text-body-secondary'>{locationStatus}</p>
+      <p>Lat: {formatCoord(currentPosition.lat)}<br />Long: {formatCoord(currentPosition.lng)}</p>
+      <MapCanvas center={currentPosition}>
+        <AdvancedMarker position={currentPosition} draggable onDragEnd={setCurrentPosition} />
+      </MapCanvas>
+    </section>
   );
 
-}
+};
 
 export default MapView;
