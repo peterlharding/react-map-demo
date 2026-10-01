@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Home page listing the demos in order, each with a short description.
+- Each demo page opens with a description of what it shows and a "Try" hint saying what to do.
+- Each page sets its own browser tab title.
+
+### Changed
+
+- Demos renamed to describe what they show: Mapper is now Basic Map (`/basic-map`), Mapper2 is Marker (`/marker`), Map Edit is Pick a Location (`/pick-location`) and Map View is My Location (`/my-location`).
+  The old paths redirect to the new ones.
+- Navigation moved from the footer to a top bar, ordered from the simplest demo to the most involved, which collapses into a menu on narrow screens.
+- `/` shows the home page instead of redirecting to Map View.
+- The home page and the "Page Not Found" page no longer need a Google Maps API key; only the demo pages load the Maps API.
+- The demo pages and the Maps library load when a demo is first opened, so the home page downloads about a third less JavaScript.
+
 ## [0.2.1] - 2026-10-01
 
 See [release_notes/v0.2.1.md](release_notes/v0.2.1.md) for details.

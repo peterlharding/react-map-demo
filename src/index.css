@@ -8,3 +8,14 @@
 gmp-advanced-marker[data-pointer-focus]:focus {
   outline: none;
 }
+
+/* Home page demo cards are clickable as a whole (stretched-link) */
+.demo-card {
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.demo-card:hover,
+.demo-card:focus-within {
+  border-color: var(--bs-primary);
+  box-shadow: var(--bs-box-shadow-sm);
+}

@@ -1,22 +1,41 @@
+import type {ComponentType} from 'react';
 import {Navigate, type RouteObject} from 'react-router';
 
-import Layout   from '../components/Layout';
-import MapView  from '../components/MapView';
-import MapEdit  from '../components/MapEdit';
-import Mapper   from '../components/Mapper';
-import Mapper2  from '../components/Mapper2';
-import NotFound from '../components/NotFound';
+import Layout       from '../components/Layout';
+import HomePage     from '../pages/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
+import {demos} from './demos';
+
+// The demo pages and the Maps library load on first use, keeping them out of the
+// home page bundle
+const page = (load: () => Promise<{default: ComponentType}>) =>
+  () => load().then(({default: Component}) => ({Component}));
+
+// Paths used before 0.3.0, kept working for old links
+const redirects: [string, string][] = [
+  ['/mapper',   demos.basicMap.path],
+  ['/mapper2',  demos.marker.path],
+  ['/map-edit', demos.pickLocation.path],
+  ['/map-view', demos.myLocation.path]
+];
 
 export const routes: RouteObject[] = [
   {
     element: <Layout />,
     children: [
-      {path: '/',         element: <Navigate to='/map-view' replace />},
-      {path: '/map-view', element: <MapView />},
-      {path: '/mapper',   element: <Mapper />},
-      {path: '/mapper2',  element: <Mapper2 />},
-      {path: '/map-edit', element: <MapEdit />},
-      {path: '*',         element: <NotFound />}
+      {path: '/', element: <HomePage />},
+      {
+        // Only the demo pages wait for the Maps API, so the home page works without a key
+        lazy: page(() => import('../components/MapsLayout')),
+        children: [
+          {path: demos.basicMap.path,     lazy: page(() => import('../pages/BasicMapPage'))},
+          {path: demos.marker.path,       lazy: page(() => import('../pages/MarkerPage'))},
+          {path: demos.pickLocation.path, lazy: page(() => import('../pages/PickLocationPage'))},
+          {path: demos.myLocation.path,   lazy: page(() => import('../pages/MyLocationPage'))}
+        ]
+      },
+      ...redirects.map(([from, to]) => ({path: from, element: <Navigate to={to} replace />})),
+      {path: '*', element: <NotFoundPage />}
     ]
   }
 ];

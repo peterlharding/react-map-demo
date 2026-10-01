@@ -1,13 +1,14 @@
 import {useState, useEffect} from 'react';
 
-import MapCanvas      from './MapCanvas';
-import AdvancedMarker from './AdvancedMarker';
-import {melbourneCoords, formatCoord, type LatLng} from './geo';
+import DemoPage       from '../components/DemoPage';
+import MapCanvas      from '../components/MapCanvas';
+import AdvancedMarker from '../components/AdvancedMarker';
+import {melbourneCoords, formatCoord, type LatLng} from '../components/geo';
+import {demos} from '../app/demos';
 
 const hasGeolocation = () => 'geolocation' in navigator;
 
-// Centers on the browser's location (falling back to Melbourne) with a draggable marker
-const MapView = () => {
+const MyLocationPage = () => {
 
   const [currentPosition, setCurrentPosition] = useState<LatLng>(melbourneCoords);
   const [locationStatus, setLocationStatus] = useState(() =>
@@ -27,16 +28,15 @@ const MapView = () => {
   }, []);
 
   return (
-    <section>
-      <h1 className='text-info h2 mb-3'>Map View Interface</h1>
-      <p className='mb-1 text-body-secondary'>{locationStatus}</p>
+    <DemoPage demo={demos.myLocation}>
+      <p className='mb-1 fst-italic'>{locationStatus}</p>
       <p>Lat: {formatCoord(currentPosition.lat)}<br />Long: {formatCoord(currentPosition.lng)}</p>
       <MapCanvas center={currentPosition}>
         <AdvancedMarker position={currentPosition} draggable onDragEnd={setCurrentPosition} />
       </MapCanvas>
-    </section>
+    </DemoPage>
   );
 
 };
 
-export default MapView;
+export default MyLocationPage;

@@ -33,16 +33,20 @@ The root `.env` (from `setup/env.template`) holds:
 
 ## Architecture
 
+- `src/app/demos.ts` is the single list of demos (path, title, summary, "Try" hint) in teaching order.
+  `HomePage`, `NavBar` and each page's `DemoPage` header all read from it, so adding a demo means a `demos.ts` entry, a page in `src/pages/` wrapped in `DemoPage`, and a route.
 - `src/app/routes.tsx` holds the route table; `App.tsx` wraps it in `createBrowserRouter`, and tests use `createMemoryRouter` on the same `routes`.
-  `/` redirects to `/map-view`, and `*` renders `NotFound`.
-- `Layout` (the root route element) wraps every page in `MapsLoader` and renders the `Footer` nav.
-- `MapsLoader` calls `useJsApiLoader` once for the whole app with the `marker` library, and shows an alert if the key is missing or loading fails.
+  `Layout` (navbar + `<main>`) is the root element; only the demo routes sit under the `MapsLayout` route, so `/` and `NotFoundPage` work without an API key.
+  The demo pages and `MapsLayout` (which wraps `MapsLoader`) are lazy routes, so the Maps library stays out of the home page bundle; keep new demo pages lazy too.
+  Pre-0.3.0 paths (`/mapper`, `/mapper2`, `/map-edit`, `/map-view`) redirect to the renamed demos.
+- `MapsLoader` calls `useJsApiLoader` once with the `marker` library, and shows an alert if the key is missing or loading fails.
   Pages must not add their own `LoadScript`.
 - `MapCanvas` is the shared `<GoogleMap>` (zoom, sizing via the `.map-canvas` class, `mapId`).
 - `AdvancedMarker` is a local wrapper around `google.maps.marker.AdvancedMarkerElement`, attached via `useGoogleMap()`.
   It exists because the library only wraps the deprecated `google.maps.Marker`; use it instead of `Marker`/`MarkerF`.
+  It also hides the focus ring after pointer use via a `data-pointer-focus` attribute (styled in `index.css`), because Google's post-drag focus matches `:focus-visible`.
 - `geo.ts` holds the shared `LatLng` type, the `melbourneCoords` default and coordinate formatting.
-- Pages: `MapView` (browser geolocation with Melbourne fallback, draggable marker), `Mapper` (bare map), `Mapper2` (untracked draggable marker), `MapEdit` (draggable marker from optional `position` prop).
+- Page titles are set with React 19's `<title>` element inside each page.
 
 ## Changelog and releases
 

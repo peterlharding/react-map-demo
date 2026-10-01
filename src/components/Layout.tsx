@@ -1,16 +1,15 @@
 import {Outlet} from 'react-router';
 import {Container} from 'react-bootstrap';
 
-import MapsLoader from './MapsLoader';
-import Footer     from './Footer';
+import NavBar from './NavBar';
 
 export const Layout = () => (
-  <Container className='py-4' style={{maxWidth: '1600px'}}>
-    <MapsLoader>
+  <>
+    <NavBar />
+    <Container as='main' className='pb-4' style={{maxWidth: '1600px'}}>
       <Outlet />
-    </MapsLoader>
-    <Footer />
-  </Container>
+    </Container>
+  </>
 );
 
 export default Layout;
