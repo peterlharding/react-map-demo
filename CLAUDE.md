@@ -51,6 +51,10 @@ The root `.env` (from `setup/env.template`) holds:
   Google moves focus after mouse use (to a dragged marker, into an opened info window) in a way that matches `:focus-visible`, so `index.css` hides focus styles while the modality is `pointer`.
 - `MapCanvas` takes a stable `center`; `GoogleMap` only re-centres when the object changes, so use `map.panTo` (via `onLoad`) to move to a selected item.
 - `geo.ts` holds the shared `LatLng` type, the `melbourneCoords` default and coordinate formatting.
+- Errors in any page, including a lazy page that fails to load, render `RouteErrorPage` inside the layout (a pathless route with `errorElement` wraps all pages); the root route has a fallback without the navbar.
+  `src/app/errors.ts` describes errors, detects stale lazy modules after a deploy, and redacts API keys (the Maps loader puts the key in its error messages).
+- `MapsLoader` loads the `marker` and `geometry` libraries. Changing that list while the dev server is running makes the Maps loader throw on hot reload; reload the page.
+- `ShapesPage` mirrors editable `PolylineF`/`PolygonF` paths into React state on `mouseup` (the library's `PolygonF` `onEdit` only watches the first path object), and `CircleF` via `onCenterChanged`/`onRadiusChanged` with an equality check, since those also fire when React sets the props.
 - Page titles are set with React 19's `<title>` element inside each page.
 
 ## Changelog and releases

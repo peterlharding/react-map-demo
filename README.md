@@ -2,7 +2,7 @@ React Map Demo
 ==============
 
 Demo of the @react-google-maps/api module, built with Vite, React 19, TypeScript and React Router 8.
-It shows five ways of putting a Google Map on a page, from a bare map up to a map you can fill with your own places.
+It shows six ways of working with a Google Map, from a bare map up to drawing and measuring your own shapes.
 
 # Setup
 
@@ -89,10 +89,29 @@ Keeps a whole list of markers in React state, rather than a single position.
 
 Places are not saved, so reloading the page starts again.
 
+## 6. Shapes and Measuring (`/shapes`)
+
+Draws editable shapes and measures them with the Maps `geometry` library.
+
+* Choose a tool, then click the map:
+  * **Route** adds points to a line, and shows its length.
+  * **Area** adds corners to a polygon, and shows its area and perimeter once it has three corners.
+  * **Circle** places a circle with a 1 km radius, or moves it, and shows its radius and area.
+* All three shapes can be on the map at once, each in its own colour.
+* Drag a shape's white handles to reshape it.
+  On a route or area, dragging one of the faint handles between two points adds a new point there.
+* **Undo last point** removes the most recent point of the selected route or area, and each shape can be cleared from the Measurements panel.
+
+Distances are shown in metres below 1 km and kilometres above.
+Areas are shown in square metres, hectares or square kilometres, depending on their size.
+Shapes are not saved, so reloading the page starts again.
+
 ## Old links and unknown pages
 
 The paths used before 0.3.0 (`/mapper`, `/mapper2`, `/map-edit` and `/map-view`) redirect to the matching demo.
 Any other path shows a "Page Not Found" message with a link to the home page.
+If a page fails to load or hits an unexpected error, an error page replaces it, keeping the navigation bar.
+It offers to reload the page or go back to the demo list, and shows the error details with any API key hidden.
 
 # How It Works
 
@@ -111,6 +130,7 @@ Any other path shows a "Page Not Found" message with a link to the home page.
   so dragging a marker never adds a place or opens a popup.
 * `src/inputModality.ts` records whether the mouse or the keyboard was used last.
   Google Maps moves focus after mouse use too (to a dragged marker, or into an opened info window), so focus outlines are shown only to keyboard users.
+* `src/pages/RouteErrorPage.tsx` is the error page, set as the `errorElement` of the routes in `src/app/routes.tsx`.
 * `src/config.ts` reads `MAPS_API_KEY` and `MAPS_MAP_ID` from `.env`.
 
 To add a demo, add an entry to `src/app/demos.ts`, a page in `src/pages/` wrapped in `DemoPage`, and a lazy route in `src/app/routes.tsx`.
@@ -122,7 +142,8 @@ To add a demo, add an entry to `src/app/demos.ts`, a page in `src/pages/` wrappe
 
 The Google Maps API cannot load in the test environment, so tests replace the map with a placeholder.
 They cover routing, the home page, navigation, the old path redirects, the missing API key message,
-and adding, showing and removing places in Add Places.
+adding, showing and removing places in Add Places, drawing and measuring in Shapes and Measuring,
+and the error page.
 Check the maps themselves in a browser with `make dev`.
 
 # Also see

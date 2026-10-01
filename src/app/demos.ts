@@ -38,9 +38,15 @@ export const demos = {
     title: 'Add Places',
     summary: 'Keeps a list of markers in React state: clicking the map adds a place, and each marker opens an info window with its details.',
     tryIt: 'Click the map a few times, then click a marker or a list entry to see its details. Drag markers to move them.'
+  },
+  shapes: {
+    path: '/shapes',
+    title: 'Shapes and Measuring',
+    summary: 'Draws an editable route, area and circle, and measures their length and area with the Maps geometry library.',
+    tryIt: 'Pick a tool and click the map to draw, then drag the white handles to reshape and watch the measurements change.'
   }
 } satisfies Record<string, Demo>;
 
 export const demoList: Demo[] = [
-  demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation, demos.addPlaces
+  demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation, demos.addPlaces, demos.shapes
 ];

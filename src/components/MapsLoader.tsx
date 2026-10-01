@@ -5,7 +5,7 @@ import {Alert, Spinner} from 'react-bootstrap';
 import {GoogleMapsApiKey} from '../config';
 
 // Must be a stable reference, the loader rejects changed options between renders
-const libraries: Libraries = ['marker'];
+const libraries: Libraries = ['marker', 'geometry'];
 
 interface Props {
   children: ReactNode;

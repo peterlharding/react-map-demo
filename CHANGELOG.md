@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Shapes and Measuring demo (`/shapes`): draw an editable route, area and circle, and see their length, area, perimeter and radius update as they are reshaped.
+- An error page for pages that fail to load or render, which keeps the navigation bar, offers to reload or go back to the demo list, and hides API keys in its error details.
+  Previously React Router's default developer error screen was shown.
+
 ## [0.4.0] - 2026-10-01
 
 See [release_notes/v0.4.0.md](release_notes/v0.4.0.md) for details.
