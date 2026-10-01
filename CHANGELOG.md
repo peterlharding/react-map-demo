@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-01
+
+See [release_notes/v0.3.0.md](release_notes/v0.3.0.md) for details.
+
 ### Added
 
 - Home page listing the demos in order, each with a short description.
@@ -89,7 +93,8 @@ See [release_notes/v0.1.0.md](release_notes/v0.1.0.md) for details.
 - Map Edit page with a draggable marker and its coordinates.
 - Footer navigation between the pages.
 
-[Unreleased]: https://github.com/peterlharding/react-map-demo/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/peterlharding/react-map-demo/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/peterlharding/react-map-demo/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/peterlharding/react-map-demo/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/peterlharding/react-map-demo/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/peterlharding/react-map-demo/releases/tag/v0.1.0
