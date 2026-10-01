@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-01
+
+See [release_notes/v0.5.0.md](release_notes/v0.5.0.md) for details.
+
 ### Added
 
 - Shapes and Measuring demo (`/shapes`): draw an editable route, area and circle, and see their length, area, perimeter and radius update as they are reshaped.
@@ -112,7 +116,8 @@ See [release_notes/v0.1.0.md](release_notes/v0.1.0.md) for details.
 - Map Edit page with a draggable marker and its coordinates.
 - Footer navigation between the pages.
 
-[Unreleased]: https://github.com/peterlharding/react-map-demo/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/peterlharding/react-map-demo/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/peterlharding/react-map-demo/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/peterlharding/react-map-demo/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/peterlharding/react-map-demo/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/peterlharding/react-map-demo/compare/v0.2.0...v0.2.1
