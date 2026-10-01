@@ -32,7 +32,15 @@ export const demos = {
     title: 'My Location',
     summary: 'Asks the browser for your location and centres the map there, falling back to Melbourne if the location is unavailable.',
     tryIt: 'Allow location access when the browser asks, then drag the marker to explore nearby.'
+  },
+  addPlaces: {
+    path: '/add-places',
+    title: 'Add Places',
+    summary: 'Keeps a list of markers in React state: clicking the map adds a place, and each marker opens an info window with its details.',
+    tryIt: 'Click the map a few times, then click a marker or a list entry to see its details. Drag markers to move them.'
   }
 } satisfies Record<string, Demo>;
 
-export const demoList: Demo[] = [demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation];
+export const demoList: Demo[] = [
+  demos.basicMap, demos.marker, demos.pickLocation, demos.myLocation, demos.addPlaces
+];

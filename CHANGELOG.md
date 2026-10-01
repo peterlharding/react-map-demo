@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add Places demo (`/add-places`): click the map to add numbered places, listed beside the map.
+  Clicking a marker or list entry opens an info window with the place's details and a Remove button, markers can be dragged, and places can be removed one at a time or all at once.
+
+### Changed
+
+- Focus outlines inside maps, including on buttons in info windows, now show only after keyboard use, generalising the marker fix from 0.2.1.
+
 ## [0.3.0] - 2026-10-01
 
 See [release_notes/v0.3.0.md](release_notes/v0.3.0.md) for details.

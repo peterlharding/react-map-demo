@@ -31,7 +31,8 @@ export const routes: RouteObject[] = [
           {path: demos.basicMap.path,     lazy: page(() => import('../pages/BasicMapPage'))},
           {path: demos.marker.path,       lazy: page(() => import('../pages/MarkerPage'))},
           {path: demos.pickLocation.path, lazy: page(() => import('../pages/PickLocationPage'))},
-          {path: demos.myLocation.path,   lazy: page(() => import('../pages/MyLocationPage'))}
+          {path: demos.myLocation.path,   lazy: page(() => import('../pages/MyLocationPage'))},
+          {path: demos.addPlaces.path,    lazy: page(() => import('../pages/AddPlacesPage'))}
         ]
       },
       ...redirects.map(([from, to]) => ({path: from, element: <Navigate to={to} replace />})),

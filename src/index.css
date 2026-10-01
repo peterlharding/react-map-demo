@@ -4,9 +4,20 @@
   border-radius: var(--bs-border-radius);
 }
 
-/* Keep the marker focus ring for keyboard users only, see AdvancedMarker.tsx */
-gmp-advanced-marker[data-pointer-focus]:focus {
+/*
+ * Show focus styles to keyboard users only, see inputModality.ts. Google Maps
+ * focuses a marker after it is dragged, and the first button in an info window
+ * when it opens, even after mouse or touch use.
+ */
+[data-input-modality='pointer'] gmp-advanced-marker:focus {
   outline: none;
+}
+
+[data-input-modality='pointer'] .btn:focus-visible {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+  box-shadow: none;
 }
 
 /* Home page demo cards are clickable as a whole (stretched-link) */
@@ -18,4 +29,11 @@ gmp-advanced-marker[data-pointer-focus]:focus {
 .demo-card:focus-within {
   border-color: var(--bs-primary);
   box-shadow: var(--bs-box-shadow-sm);
+}
+
+/* Add Places list: match the map's height beside it, scrolling when long */
+@media (min-width: 992px) {
+  .places-panel {
+    max-height: 70vh;
+  }
 }

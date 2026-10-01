@@ -10,7 +10,8 @@ import {demoList} from './demos';
 vi.mock('@react-google-maps/api', () => ({
   useJsApiLoader: () => ({isLoaded: true, loadError: undefined}),
   useGoogleMap: () => null,
-  GoogleMap: ({children}: {children?: ReactNode}) => <div data-testid='google-map'>{children}</div>
+  GoogleMap: ({children}: {children?: ReactNode}) => <div data-testid='google-map'>{children}</div>,
+  InfoWindowF: () => null
 }));
 
 vi.mock('../config', () => ({GoogleMapsApiKey: 'test-key', GoogleMapId: 'DEMO_MAP_ID'}));

@@ -44,7 +44,12 @@ The root `.env` (from `setup/env.template`) holds:
 - `MapCanvas` is the shared `<GoogleMap>` (zoom, sizing via the `.map-canvas` class, `mapId`).
 - `AdvancedMarker` is a local wrapper around `google.maps.marker.AdvancedMarkerElement`, attached via `useGoogleMap()`.
   It exists because the library only wraps the deprecated `google.maps.Marker`; use it instead of `Marker`/`MarkerF`.
-  It also hides the focus ring after pointer use via a `data-pointer-focus` attribute (styled in `index.css`), because Google's post-drag focus matches `:focus-visible`.
+  Optional `label` (white text in a `PinElement`), `title` and `onClick` (which sets `gmpClickable`; `gmp-click` does not fire without it).
+  On drag end it records the time in `markerDrag.ts`, and `MapCanvas` drops the map click Google sends about 300 ms later for the same gesture.
+  So `MapCanvas` `onClick` never fires for a marker drag; do not add other workarounds for it.
+- `src/inputModality.ts` sets `data-input-modality` (`pointer` or `keyboard`) on `<html>`.
+  Google moves focus after mouse use (to a dragged marker, into an opened info window) in a way that matches `:focus-visible`, so `index.css` hides focus styles while the modality is `pointer`.
+- `MapCanvas` takes a stable `center`; `GoogleMap` only re-centres when the object changes, so use `map.panTo` (via `onLoad`) to move to a selected item.
 - `geo.ts` holds the shared `LatLng` type, the `melbourneCoords` default and coordinate formatting.
 - Page titles are set with React 19's `<title>` element inside each page.
 

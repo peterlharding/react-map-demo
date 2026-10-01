@@ -2,7 +2,7 @@ React Map Demo
 ==============
 
 Demo of the @react-google-maps/api module, built with Vite, React 19, TypeScript and React Router 8.
-It shows four ways of putting a Google Map on a page, from a bare map up to a map that follows your location.
+It shows five ways of putting a Google Map on a page, from a bare map up to a map you can fill with your own places.
 
 # Setup
 
@@ -76,6 +76,19 @@ Centres the map on your current location.
 * If location access is denied or unsupported, the map stays on Melbourne.
 * As in Pick a Location, dragging the marker updates the coordinates and re-centres the map.
 
+## 5. Add Places (`/add-places`)
+
+Keeps a whole list of markers in React state, rather than a single position.
+
+* Clicking the map adds a numbered place there, and it appears in the list beside the map (below it on narrow screens).
+  Clicking one of Google's own points of interest adds a place too, instead of opening Google's information popup.
+* Clicking a marker, or a place in the list, opens an info window with its coordinates and a Remove button.
+  Choosing from the list also pans the map to that place.
+* Dragging a marker moves its place, and the list and any open info window follow it.
+* Places can be removed one at a time from the list or the info window, or all at once with Clear all.
+
+Places are not saved, so reloading the page starts again.
+
 ## Old links and unknown pages
 
 The paths used before 0.3.0 (`/mapper`, `/mapper2`, `/map-edit` and `/map-view`) redirect to the matching demo.
@@ -94,6 +107,10 @@ Any other path shows a "Page Not Found" message with a link to the home page.
 * `src/components/MapCanvas.tsx` is the shared map: size, zoom and map ID.
 * `src/components/AdvancedMarker.tsx` renders Google's current `AdvancedMarkerElement`.
   The library only wraps the older `google.maps.Marker`, which Google has deprecated, so this small component attaches the new marker to the map itself.
+* `src/components/markerDrag.ts` drops the extra map click that Google sends when a dragged marker is released,
+  so dragging a marker never adds a place or opens a popup.
+* `src/inputModality.ts` records whether the mouse or the keyboard was used last.
+  Google Maps moves focus after mouse use too (to a dragged marker, or into an opened info window), so focus outlines are shown only to keyboard users.
 * `src/config.ts` reads `MAPS_API_KEY` and `MAPS_MAP_ID` from `.env`.
 
 To add a demo, add an entry to `src/app/demos.ts`, a page in `src/pages/` wrapped in `DemoPage`, and a lazy route in `src/app/routes.tsx`.
@@ -104,7 +121,8 @@ To add a demo, add an entry to `src/app/demos.ts`, a page in `src/pages/` wrappe
  $ npx vitest run src/app/routes.test.tsx -t "redirects"   # one test
 
 The Google Maps API cannot load in the test environment, so tests replace the map with a placeholder.
-They cover routing, the home page, navigation, the old path redirects and the missing API key message.
+They cover routing, the home page, navigation, the old path redirects, the missing API key message,
+and adding, showing and removing places in Add Places.
 Check the maps themselves in a browser with `make dev`.
 
 # Also see
