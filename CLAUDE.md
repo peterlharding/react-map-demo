@@ -44,6 +44,12 @@ The root `.env` (from `setup/env.template`) holds:
 - `geo.ts` holds the shared `LatLng` type, the `melbourneCoords` default and coordinate formatting.
 - Pages: `MapView` (browser geolocation with Melbourne fallback, draggable marker), `Mapper` (bare map), `Mapper2` (untracked draggable marker), `MapEdit` (draggable marker from optional `position` prop).
 
+## Changelog and releases
+
+`CHANGELOG.md` (Keep a Changelog) is maintained by hand: add each user-visible change under `## [Unreleased]` in the same change.
+At release time the Unreleased items move to a dated version section and `release_notes/v<version>.md` is written (structure in `release_notes/README.md`).
+`RELEASING.md` has the release steps and the commit message prefixes (`feat:`, `fix:`, `docs:`, `build:` and so on).
+
 ## Testing
 
 jsdom cannot load the Maps JavaScript API, so tests `vi.mock('@react-google-maps/api')` and `vi.mock('../config')`.
