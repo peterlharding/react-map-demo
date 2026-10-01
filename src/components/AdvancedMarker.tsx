@@ -32,12 +32,21 @@ export const AdvancedMarker = ({position, draggable = false, onDragEnd}: Props) 
       return;
     }
     const marker = new google.maps.marker.AdvancedMarkerElement({map});
-    const listener = () => handleDragEnd();
-    marker.addEventListener('gmp-dragend', listener);
+    const listeners = new AbortController();
+    const {signal} = listeners;
+    marker.addEventListener('gmp-dragend', () => handleDragEnd(), {signal});
+
+    // Google focuses the marker after a mouse or touch drag in a way that matches
+    // :focus-visible, so record pointer use and let index.css hide the focus ring
+    // until the marker is used from the keyboard or loses focus
+    const setPointerFocus = (on: boolean) => marker.toggleAttribute('data-pointer-focus', on);
+    marker.addEventListener('pointerdown', () => setPointerFocus(true), {signal, capture: true});
+    marker.addEventListener('keydown', () => setPointerFocus(false), {signal, capture: true});
+    marker.addEventListener('focusout', () => setPointerFocus(false), {signal});
     markerRef.current = marker;
 
     return () => {
-      marker.removeEventListener('gmp-dragend', listener);
+      listeners.abort();
       marker.map = null;
       markerRef.current = null;
     };

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Dragging a marker with the mouse left a square blue focus outline around it.
+  The outline now only shows when the marker is focused or moved from the keyboard.
+
 ## [0.2.0] - 2026-10-01
 
 See [release_notes/v0.2.0.md](release_notes/v0.2.0.md) for details.

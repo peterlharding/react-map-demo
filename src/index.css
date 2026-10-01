@@ -3,3 +3,8 @@
   width: 100%;
   border-radius: var(--bs-border-radius);
 }
+
+/* Keep the marker focus ring for keyboard users only, see AdvancedMarker.tsx */
+gmp-advanced-marker[data-pointer-focus]:focus {
+  outline: none;
+}
